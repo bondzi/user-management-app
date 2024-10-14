@@ -38,6 +38,11 @@ const userService = {
     return response.data;
   },
 
+  addUser: async (userData: Omit<User, 'id'>): Promise<User> => {
+    const response = await axios.post(`${API_BASE_URL}/users/add`, userData);
+    return response.data;
+  },
+
   searchUsers: async (
     query: string,
     limit = 30,

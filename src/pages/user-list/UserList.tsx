@@ -11,10 +11,12 @@ import {
   TablePagination,
   TextField,
   InputAdornment,
+  Button,
 } from "@mui/material";
 import DeleteIcon from "@mui/icons-material/Delete";
 import VisibilityIcon from "@mui/icons-material/Visibility";
 import SearchIcon from "@mui/icons-material/Search";
+import AddIcon from "@mui/icons-material/Add";
 import userService, { User } from "../../services/api/user-service";
 import { useNavigate } from "react-router-dom";
 import ConfirmationDialog from "../../components/confirmation-dialog/ConfirmationDialog";
@@ -98,25 +100,36 @@ const UserList: React.FC = () => {
     setPage(0);
   };
 
+  const handleAddUser = () => {
+    navigate("/users/new");
+  };
+
   return (
     <Paper>
-      <TextField
-        fullWidth
-        variant="outlined"
-        placeholder="Search users..."
-        value={searchQuery}
-        onChange={handleSearchChange}
-        slotProps={{
-          input: {
+      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '1rem' }}>
+        <TextField
+          style={{ flexGrow: 1, marginRight: '1rem' }}
+          variant="outlined"
+          placeholder="Search users..."
+          value={searchQuery}
+          onChange={handleSearchChange}
+          InputProps={{
             startAdornment: (
               <InputAdornment position="start">
                 <SearchIcon />
               </InputAdornment>
             ),
-          },
-        }}
-        sx={{ mb: 2 }}
-      />
+          }}
+        />
+        <Button
+          variant="contained"
+          color="primary"
+          startIcon={<AddIcon />}
+          onClick={handleAddUser}
+        >
+          Add User
+        </Button>
+      </div>
       <TableContainer>
         <Table>
           <TableHead>

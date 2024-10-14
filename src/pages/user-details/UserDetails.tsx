@@ -47,18 +47,25 @@ const UserDetails: React.FC = () => {
   const navigate = useNavigate();
   const [user, setUser] = useState<User | null>(null);
   const [isEditing, setIsEditing] = useState(false);
+  const [isAdding, setIsAdding] = useState(false);
   const { showSnackbar } = useSnackbar();
 
   const handleSave = async (values: User) => {
     try {
-      await userService.updateUser(Number(id), values);
-      setIsEditing(false);
-      showSnackbar(
-        "User updated successfully. Please note that the user list will not update, as the API is not allowing it.",
-        "success"
-      );
+      if (isAdding) {
+        await userService.addUser(values);
+        showSnackbar("User added successfully.", "success");
+        navigate("/users");
+      } else {
+        await userService.updateUser(Number(id), values);
+        setIsEditing(false);
+        showSnackbar(
+          "User updated successfully. Please note that the user list will not update, as the API is not allowing it.",
+          "success"
+        );
+      }
     } catch (error) {
-      showSnackbar("Error updating user. Please try again.", "error");
+      showSnackbar(`Error ${isAdding ? "adding" : "updating"} user. Please try again.`, "error");
     }
   };
 
@@ -75,7 +82,12 @@ const UserDetails: React.FC = () => {
   });
 
   useEffect(() => {
-    fetchUserDetails();
+    if (id === "new") {
+      setIsAdding(true);
+      setIsEditing(true);
+    } else {
+      fetchUserDetails();
+    }
   }, [id]);
 
   const fetchUserDetails = async () => {
@@ -88,7 +100,7 @@ const UserDetails: React.FC = () => {
     }
   };
 
-  if (!user) {
+  if (!user && !isAdding) {
     return <Typography>Loading...</Typography>;
   }
 
@@ -98,9 +110,11 @@ const UserDetails: React.FC = () => {
         <IconButton onClick={() => navigate("/users")}>
           <ArrowBack />
         </IconButton>
-        <Typography variant="h4">User Details</Typography>
+        <Typography variant="h4">
+          {isAdding ? "Add New User" : "User Details"}
+        </Typography>
       </div>
-      <form>
+      <form onSubmit={formik.handleSubmit}>
         <div className="user-details-form-fields">
           {fields.map((field) => (
             <TextField
@@ -119,21 +133,27 @@ const UserDetails: React.FC = () => {
                 formik.touched[field.name as keyof User] &&
                 formik.errors[field.name as keyof User]
               }
-              disabled={!isEditing}
+              disabled={!isEditing && !isAdding}
             />
           ))}
         </div>
         <div className="user-details-form-actions">
-          {isEditing ? (
+          {isEditing || isAdding ? (
             <>
               <Button
-                onClick={() => formik.handleSubmit()}
+                type="submit"
                 variant="contained"
                 color="primary"
               >
-                Save
+                {isAdding ? "Add User" : "Save"}
               </Button>
-              <Button onClick={() => setIsEditing(false)}>Cancel</Button>
+              <Button onClick={() => {
+                setIsEditing(false);
+                setIsAdding(false);
+                if (isAdding) navigate("/users");
+              }}>
+                Cancel
+              </Button>
             </>
           ) : (
             <Button
