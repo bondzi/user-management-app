@@ -7,40 +7,44 @@ import {
   CssBaseline,
   IconButton,
 } from "@mui/material";
-import { ThemeProvider, createTheme } from "@mui/material/styles";
 import Brightness4Icon from "@mui/icons-material/Brightness4";
 import Brightness7Icon from "@mui/icons-material/Brightness7";
-import { useState } from "react";
 import { SnackbarProvider } from "./services/snackbar-service";
 import { AppRoutes } from "./routes";
+import { AppProvider, useAppContext } from "./contexts/AppContext";
 
-function App() {
-  const [darkMode, setDarkMode] = useState(false);
-  const theme = createTheme({ palette: { mode: darkMode ? "dark" : "light" } });
+function AppContent() {
+  const { darkMode, toggleDarkMode } = useAppContext();
 
   return (
-    <ThemeProvider theme={theme}>
-      <BrowserRouter>
-        <SnackbarProvider>
-          <Box sx={{ display: "flex" }}>
-            <CssBaseline />
-            <AppBar position="fixed">
-              <Toolbar>
-                <Typography variant="h6" noWrap sx={{ flexGrow: 1 }}>
-                  User Management
-                </Typography>
-                <IconButton color="inherit" onClick={() => setDarkMode(!darkMode)}>
-                  {darkMode ? <Brightness7Icon /> : <Brightness4Icon />}
-                </IconButton>
-              </Toolbar>
-            </AppBar>
-            <Box component="main" py={10} px={4} flexGrow={1}>
-              <AppRoutes />
-            </Box>
+    <BrowserRouter>
+      <SnackbarProvider>
+        <Box sx={{ display: "flex" }}>
+          <CssBaseline />
+          <AppBar position="fixed">
+            <Toolbar>
+              <Typography variant="h6" noWrap sx={{ flexGrow: 1 }}>
+                User Management
+              </Typography>
+              <IconButton color="inherit" onClick={toggleDarkMode}>
+                {darkMode ? <Brightness7Icon /> : <Brightness4Icon />}
+              </IconButton>
+            </Toolbar>
+          </AppBar>
+          <Box component="main" py={10} px={4} flexGrow={1}>
+            <AppRoutes />
           </Box>
-        </SnackbarProvider>
-      </BrowserRouter>
-    </ThemeProvider>
+        </Box>
+      </SnackbarProvider>
+    </BrowserRouter>
+  );
+}
+
+function App() {
+  return (
+    <AppProvider>
+      <AppContent />
+    </AppProvider>
   );
 }
 
