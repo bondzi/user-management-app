@@ -1,0 +1,19 @@
+.user-details-container {
+  padding: 20px;
+}
+
+.user-details-header {
+  display: flex;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.user-details-form-fields {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.user-details-form-actions {
+  margin-top: 20px;
+}
