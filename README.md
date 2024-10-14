@@ -1,6 +1,24 @@
-# Getting Started with Create React App
+# User Management Application
+
+This project is a User Management application where users can manage other users (list, view, add, remove, edit). It uses [DummyJSON](https://dummyjson.com/) as the API for example data.
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+
+## Project Details
+
+- **Name**: user-management-app
+- **Version**: 0.1.0
+- **Description**: A React application with Material UI for managing users using DummyJSON API
+
+## Key Features
+
+- User management (list, view, add, remove, edit)
+- Integration with DummyJSON API
+- Material UI
+- Form handling with Formik
+- Form validation with Yup
+- Storybook for documenting reusable components
+
 
 ## Available Scripts
 
@@ -11,36 +29,56 @@ In the project directory, you can run:
 Runs the app in the development mode.\
 Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
-
 ### `npm test`
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+Launches the test runner in the interactive watch mode.
 
 ### `npm run build`
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+Builds the app for production to the `build` folder.
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+### `npm run storybook`
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+Runs Storybook for developing and testing reusable components.\
+Open [http://localhost:6006](http://localhost:6006) to view it in the browser.
 
-### `npm run eject`
+## Storybook
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+This project uses Storybook for developing and showcasing reusable components. Storybook provides a sandbox environment to build and test UI components in isolation.
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+To run Storybook:
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+1. Ensure all dependencies are installed by running `npm install`
+2. Run the command `npm run storybook`
+3. Open your browser and navigate to `http://localhost:6006`
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
+You can now browse and interact with the components in the Storybook interface.
+
+## Form Handling and Validation
+
+This application uses Formik for form management and Yup for form validation:
+
+- **Formik**: Simplifies form handling by managing form state, validation, and submission.
+- **Yup**: Provides a schema-based approach to form validation, working seamlessly with Formik.
+
+These libraries together provide a robust solution for creating and validating forms throughout the application.
+
+## API Integration
+
+This application uses the [DummyJSON API](https://dummyjson.com/) for demonstration purposes. Specifically, it utilizes the following endpoint:
+
+- Users: https://dummyjson.com/users
 
 ## Learn More
 
 You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
 
 To learn React, check out the [React documentation](https://reactjs.org/).
+
+For more information about the DummyJSON API, visit their [documentation](https://dummyjson.com/docs).
+
+For Formik documentation, visit [Formik's official site](https://formik.org/).
+
+For Yup documentation, check out [Yup's GitHub page](https://github.com/jquense/yup).
+
+For Storybook documentation, visit [Storybook's official site](https://storybook.js.org/).

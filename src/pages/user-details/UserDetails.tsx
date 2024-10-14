@@ -42,6 +42,15 @@ const fields = [
   },
 ];
 
+/**
+ * UserDetails component
+ * This component is used to display and manage user details.
+ * It serves three purposes:
+ * 1. View user details
+ * 2. Edit existing user information
+ * 3. Add a new user
+ * The component adapts its behavior based on the route parameters and user interactions.
+ */
 const UserDetails: React.FC = () => {
   const { id } = useParams<{ id: string }>();
   const navigate = useNavigate();
